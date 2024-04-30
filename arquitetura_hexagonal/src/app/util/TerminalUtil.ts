@@ -7,7 +7,7 @@ export default class TerminalUtil {
     }
 
     static titulo(texto: string) {
-        terminal.clear()
+        this.limpar()
         terminal.magenta(`${texto}\n`)
         terminal.magenta(`-`.repeat(texto.length) + `\n`)
     }
@@ -21,7 +21,7 @@ export default class TerminalUtil {
     }
 
     static limpar() {
-        terminal.clear()
+        //terminal.clear()
     }
 
     static exibirChaveValor(chave: string, valor: any) {
