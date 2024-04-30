@@ -1,20 +1,21 @@
 import CasoDeUso from "@/core/shared/CasoDeUso";
 import Produto from "../model/Produto";
-import Usuario from "@/core/usuario/model/Usuario";
+import RepositorioProduto from "./RepositorioProduto";
+import Erros from "@/core/shared/Erros";
 
 export type Entrada = {
-	produtoId: string,
-	usuario: Usuario
+	produtoId: string
 }
 
-// TODO: Adicionar um repositorio e permitir cadastrar produto no DB
 export default class ObterProdutoPorId implements CasoDeUso<Entrada, Produto> {
+	constructor(
+		private repositorioProduto: RepositorioProduto
+	){}
+
 	async executar(entrada: Entrada): Promise<Produto> {
-		return {
-			id: entrada.produtoId,
-			nome: "Produto 1",
-			preco: 10.0,
-			consultadoPor: entrada.usuario.email
-		}
+		const produto = await this.repositorioProduto.buscaPorId(entrada.produtoId)
+		if (!produto) throw Error(Erros.PRODUTO_INEXISTENTE)
+
+		return produto
 	}
 }

@@ -10,6 +10,7 @@ import LoginUsuarioController from './external/api/LoginUsuarioController'
 import ObterProdutoPorIdController from './external/api/ObterProdutoPorIdController'
 import ObterProdutoPorId from './core/produto/service/ObterProdutoPorId'
 import UsuarioMiddleware from './external/api/UsuarioMiddleware'
+import RepositorioProdutoPg from './external/db/RepositorioProdutoPg'
 
 const app = express()
 const porta = process.env.API_PORT ?? 4000
@@ -34,6 +35,7 @@ new LoginUsuarioController(app, loginUsuario)
 
 // ---------- Rotas protegidas
 const usuarioMiddleware = UsuarioMiddleware(repositorioUsuario)
+const repositorioProduto = new RepositorioProdutoPg()
 
-const obterProdutoPorId = new ObterProdutoPorId()
+const obterProdutoPorId = new ObterProdutoPorId(repositorioProduto)
 new ObterProdutoPorIdController(app, obterProdutoPorId, usuarioMiddleware)

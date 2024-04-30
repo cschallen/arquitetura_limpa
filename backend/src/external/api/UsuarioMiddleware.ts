@@ -5,8 +5,7 @@ import RepositorioUsuario from "@/core/usuario/service/RepositorioUsuario"
 
 export default function UsuarioMiddleware(repositorio: RepositorioUsuario) {
 	return async(req: Request, resp: Response, next: NextFunction) => {
-		// TODO: Trocar mensagem para generaliza-la, deixando mais segura a app
-		const acessoNegado = () => resp.status(403).send('Token inválido')
+		const acessoNegado = () => resp.status(403).send('Acesso negado')
 		const token = req.headers.authorization?.replace('Bearer ', '')
 
 		if(!token) {
