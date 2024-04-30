@@ -16,10 +16,10 @@ export default class RepositorioProdutoPg implements RepositorioProduto {
 		)
 	}
 
-	async buscaPorId(id: string): Promise<Produto | null> {
+	async buscaPorNome(nome: string): Promise<Produto | null> {
 		const produto = await db.oneOrNone(
-			"select * from produtos where id = $1",
-			[id]
+			"select * from produtos where nome = $1",
+			[nome]
 		)
 		if(!produto) return null
 		return produto

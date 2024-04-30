@@ -13,7 +13,7 @@ export default class RegistrarUsuario implements CasoDeUso<Usuario, void> {
 	) {}
 
 	async executar(usuario: Usuario): Promise<any> {
-		const senhaCripto = this.provedorCripto.criptografar(usuario.senha)
+		const senhaCripto = this.provedorCripto.criptografar(usuario.senha!)
 		const usuarioExistente = await this.repositorio.buscaPorEmail(usuario.email)
 		console.log(usuarioExistente);
 
