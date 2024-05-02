@@ -13,6 +13,8 @@ import RegistrarProduto from './core/produto/service/RegistrarProduto'
 import RegistrarProdutoController from './external/api/RegistrarProdutoController'
 import ObterProdutoPorNome from './core/produto/service/ObterProdutoPorNome'
 import ObterProdutoPorNomeController from './external/api/ObterProdutoPorNomeController'
+import DeletarProdutoController from './external/api/DeletarProdutoController'
+import DeletarProduto from './core/produto/service/DeletarProduto'
 
 const app = express()
 const porta = process.env.API_PORT ?? 4000
@@ -41,5 +43,8 @@ const repositorioProduto = new RepositorioProdutoPg()
 
 const registrarProduto = new RegistrarProduto(repositorioProduto)
 const obterProdutoPorNome = new ObterProdutoPorNome(repositorioProduto)
+const deletarProduto = new DeletarProduto(repositorioProduto)
+
 new ObterProdutoPorNomeController(app, obterProdutoPorNome, usuarioMiddleware)
 new RegistrarProdutoController(app, registrarProduto, usuarioMiddleware)
+new DeletarProdutoController(app, deletarProduto)

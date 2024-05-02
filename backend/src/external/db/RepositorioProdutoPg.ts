@@ -16,6 +16,16 @@ export default class RepositorioProdutoPg implements RepositorioProduto {
 		)
 	}
 
+	async remover(id: string): Promise<void> {
+		await db.query(
+			`delete from produtos
+				where id = $1`,
+				[
+					id
+				]
+		)
+	}
+
 	async buscaPorNome(nome: string): Promise<Produto | null> {
 		const produto = await db.oneOrNone(
 			"select * from produtos where nome = $1",
@@ -24,4 +34,12 @@ export default class RepositorioProdutoPg implements RepositorioProduto {
 		if(!produto) return null
 		return produto
 	}
+
+	async buscaPorId(id: string): Promise<Produto | null> {
+		const produto = await db.oneOrNone(
+			"select * from produtos where id = $1",
+			[id]
+		)
+		if(!produto) return null
+		return produto	}
 }
